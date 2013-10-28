@@ -38,6 +38,7 @@ public class GoogleOauthServer {
 
 	private final String clientId = "428385348633.apps.googleusercontent.com";
 	private final String clientSecret = "zJpDtrqk7is9OwjDNWi5CzOK";
+	private final String callbackUri = "http://localhost:8089/callback";
 	
 	public static void main(String[] args) throws Exception {
 		new GoogleOauthServer().startJetty();
@@ -66,7 +67,7 @@ public class GoogleOauthServer {
 			.append("?client_id=").append(clientId) // the client id from the api console registration
 			.append("&response_type=code")
 			.append("&scope=openid%20email") // scope is the api permissions we are requesting
-			.append("&redirect_uri=http://localhost:8089/callback") // the servlet that google redirects to after authorization
+			.append("&redirect_uri=").append(callbackUri) // the servlet that google redirects to after authorization
 			.append("&state=this_can_be_anything_to_help_correlate_the_response%3Dlike_session_id")
 			.append("&access_type=offline") // here we are asking to access to user's data while they are not signed in
 			.append("&approval_prompt=force"); // this requires them to verify which account to use, if they are already signed in
@@ -97,7 +98,7 @@ public class GoogleOauthServer {
 					.put("code", code)
 					.put("client_id", clientId)
 					.put("client_secret", clientSecret)
-					.put("redirect_uri", "http://localhost:8089/callback")
+					.put("redirect_uri", callbackUri)
 					.put("grant_type", "authorization_code").build());
 
 			// ex. returns

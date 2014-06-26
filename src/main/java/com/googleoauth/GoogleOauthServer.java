@@ -126,7 +126,7 @@ public class GoogleOauthServer {
 			req.getSession().setAttribute("access_token", accessToken);
 			
 			// get some info about the user with the access token
-			String json = get(new StringBuilder("https://www.googleapis.com/oauth2/v1/userinfo?access_token=").append(accessToken).toString());
+			String json = get(new StringBuilder("https://www.googleapis.com/plus/v1/people/me?access_token=").append(accessToken).toString());
 			
 			// now we could store the email address in session
 			
